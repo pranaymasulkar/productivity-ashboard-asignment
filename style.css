@@ -60,7 +60,7 @@
   --cerebralgrey: #cccccc;
 
   /* Brand */
-  --green: #008000;
+  --green: #f1ecfa;
   --green-primary: #166534;
   --red: #ff0000;
   --red-primary: #991b1b;
@@ -82,6 +82,10 @@
   /* Shadows */
   --shadow: rgba(0, 0, 0, 0.08);
   --sidebar-bg: #f8fafc;
+
+  /* Productive Dashoard */
+  --leticiaz: #f1ecfa;
+  --primary-color: #6834c5;
 }
 
 /* ==========================
@@ -203,7 +207,7 @@ header button {
   text-align: left;
   padding: 0.75rem 1rem;
   border-radius: 10px;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   text-transform: capitalize;
   text-decoration: none;
   font-size: 1rem;
@@ -212,18 +216,16 @@ header button {
   background: transparent;
   border: 1px solid transparent;
   transition: all 0.25s ease;
+  cursor: pointer;
 }
-.sidebar nav a:hover {
+.sidebar nav a:hover,
+.sidebar nav a.active {
   background: var(--white);
-  border-color: var(--murmur);
+  border-color: var(--primary-color);
   transform: translateX(4px);
+  color: var(--primary-color);
 }
 
-.sidebar nav a.active {
-  background: var(--blue-gungeon);
-  color: #fff;
-  border-color: var(--blue-gungeon);
-}
 .sidebar nav button {
   display: block;
   text-align: center;
@@ -274,7 +276,7 @@ header button {
   left: 0; */
 }
 .form-modal .form-area,
-.transaction-modal .form-area {
+.universal-modal .form-area {
   width: 30%;
   padding: 2rem;
   background-color: var(--lynx);
@@ -283,11 +285,11 @@ header button {
   text-align: center;
 }
 .form-modal form,
-.transaction-modal form {
+.universal-modal form {
   margin: 2rem 0;
 }
 .form-modal form label,
-.transaction-modal form label {
+.universal-modal form label {
   font-size: 1rem;
   margin-bottom: 0.5rem;
   text-align: left;
@@ -295,7 +297,7 @@ header button {
   color: var(--sambucus);
 }
 .form-modal form input,
-.transaction-modal form input {
+.universal-modal form input {
   display: block;
   height: 40px;
   width: 100%;
@@ -307,7 +309,7 @@ header button {
   border: 1px solid var(--input-border);
 }
 .form-modal form button,
-.transaction-modal form button {
+.universal-modal form button {
   background-color: var(--green);
   border: 1px solid var(--green);
   color: #ffffff;
@@ -330,26 +332,26 @@ header button {
 
 /* Main Content */
 
-.transaction-modal {
+.universal-modal {
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* position: absolute;
+  position: absolute;
   top: 0;
-  left: 0; */
+  left: 0;
   border-radius: 0;
   color: var(--sambucus);
   background: rgba(0, 0, 0, 0.6);
 }
-.transaction-modal .form-area .title-area {
+.universal-modal .form-area .title-area {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
 }
-.transaction-modal .form-area .title-area button {
+.universal-modal .form-area .title-area button {
   text-align: center;
   text-transform: capitalize;
   font-size: 0.5rem;
@@ -362,16 +364,16 @@ header button {
   background: var(--button-bg);
   color: var(--button-text);
 }
-.transaction-modal .form-area .form-group {
+.universal-modal .form-area .form-group {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
 }
-.transaction-modal .form-area .form-group div {
+.universal-modal .form-area .form-group div {
   width: 100%;
 }
-.transaction-modal .form-area .form-group select {
+.universal-modal .form-area .form-group select {
   padding: 10px;
   border-radius: 6px;
   font-family: inherit;
@@ -632,4 +634,78 @@ header button {
 }
 canvas {
   margin: 1rem 0 0 0;
+}
+
+/* Navigate bg coors for sections */
+
+.pageSection {
+  height: 100%;
+  width: 100%;
+}
+.dashboard {
+  background-color: #1f2937;
+}
+
+.todo-list {
+}
+
+.daily-planner {
+  background-color: lime;
+}
+
+.daily-goals {
+  background-color: gold;
+}
+
+.promodore {
+  background-color: pink;
+}
+
+.weather {
+  background-color: green;
+}
+
+.motivation {
+  background-color: var(--button-bg);
+}
+
+.settings {
+  background-color: blue;
+}
+
+.add-transaction {
+  background-color: black;
+}
+
+/* Page Section */
+.pageSection .page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+.pageSection .page-heading .headings {
+  width: 80%;
+}
+.pageSection .page-heading .headings h2 {
+  text-transform: capitalize;
+}
+.pageSection .page-heading button {
+  display: block;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  border-radius: 7px;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white-text);
+  width: 100%;
+  cursor: pointer;
+  background: var(--primary-color);
+  color: var(--button-text);
+  border: none;
+  width: 15%;
 }

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+      integrity="sha512-XcIsjKMcuVe0Ucj/xgIXQnytNwBttJbNjltBV18IOnru2lDPe9KRRyvCXw6Y5H415vbBLRm8+q6fmLUU7DfO6Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <main id="main">
+      <header>
+        <div class="logo">
+          <h2>FinTrack Pro</h2>
+          <span>Enterprise Finance</span>
+        </div>
+        <nav>
+          <label class="switch">
+            <input id="dark-mode-btn" type="checkbox" />
+            <span class="slider round"></span>
+          </label>
+          <h3 id="profileName"></h3>
+          <button id="logoutBtn">Logout</button>
+        </nav>
+      </header>
+      <section class="main-container">
+        <div class="sidebar">
+          <nav>
+            <div>
+              <a href="/"><i class="ri-gallery-view-2"></i> dashboard</a>
+              <a href="/"><i class="ri-gallery-view-2"></i> todo list</a>
+              <a href="/"><i class="ri-gallery-view-2"></i> Daily Planner</a>
+              <a href="/"><i class="ri-gallery-view-2"></i> daily goals</a>
+              <a href="/"><i class="ri-gallery-view-2"></i> promodore timer</a>
+              <a href="/"><i class="ri-gallery-view-2"></i> Weather</a>
+              <a href="/"><i class="ri-gallery-view-2"></i> Motivation</a>
+              <a href="/setting"><i class="ri-settings-4-fill"></i> Settings</a>
+            </div>
+            <button id="add-transaction-btn">+ add transaction</button>
+          </nav>
+        </div>
+        <section class="main-section">
+          <!-- Title Section Start -->
+          <section class="dashborad-head-sec">
+            <h2>Financial Overview</h2>
+            <p>Real-time tracking application</p>
+          </section>
+          <!-- Title Section End -->
+
+          <!-- Title Section Start -->
+          <section class="card-section">
+            <!-- Hear Is The dynamic Code -->
+          </section>
+          <!-- Title Section End -->
+
+          <section class="graph-container">
+            <div class="graph-main">
+              <div class="table-container">
+                <h3>Cash Flow Analysis</h3>
+                <canvas id="icomeExpenseChart"></canvas>
+              </div>
+              <!-- Transaction Table Start -->
+              <div class="transcation-table">
+                <div class="table-container">
+                  <h3>All Transactions</h3>
+                  <div class="search-section">
+                    <div class="search-bar">
+                      <i class="ri-search-2-line"></i>
+                      <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search transactions..."
+                      />
+                    </div>
+                    <select id="typeFilter" class="filter-select">
+                      <option value="all">All Types</option>
+                      <option value="income">Income Only</option>
+                      <option value="expense">Expense Only</option>
+                    </select>
+                  </div>
+                  <table class="transaction-table">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Amount (₹)</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="transaction-rows">
+                      <!-- Dynamic rows will be added here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- Transaction Table End -->
+            </div>
+            <div class="graph-sidebar">
+              <div class="transcation-table">
+                <div class="table-container">
+                  <h3>Expense Analysis</h3>
+
+                  <!-- pi chart start -->
+                  <div>
+                    <canvas id="categoryExpense"></canvas>
+                  </div>
+                  <!-- pi chart end -->
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+      </section>
+
+      <!-- Transaction Add Modal Start -->
+      <section class="transaction-modal">
+        <div class="form-area">
+          <div class="title-area">
+            <h2>Add Transaction</h2>
+            <button id="closeModal">X</button>
+          </div>
+          <form action="" id="addTransactionForm">
+            <div class="form-group">
+              <div>
+                <label>Type</label>
+                <select id="txType" required>
+                  <option value="expense">Expense</option>
+                  <option value="income">Income</option>
+                </select>
+              </div>
+            </div>
+            <label>Description</label>
+            <input
+              id="txDescription"
+              type="text"
+              placeholder="e.g. Amazon, Salary, Coffee"
+            />
+            <div class="form-group">
+              <div>
+                <label>Ammount</label>
+                <input
+                  id="txAmount"
+                  type="number"
+                  placeholder="0000"
+                  required
+                />
+              </div>
+              <div>
+                <label>Date</label>
+                <input id="txDate" type="date" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <div>
+                <label>Category</label>
+                <select id="txCategory" required>
+                  <option value="" disabled="" selected="">
+                    Select a category
+                  </option>
+                  <option value="Food Dining">Food Dining</option>
+                  <option value="Shopping">Shopping</option>
+                  <option value="Recharge Bills">Recharge Bills</option>
+                  <option value="Petrol Auto">Petrol Auto</option>
+                  <option value="Utilities">Utilities</option>
+                  <option value="Salary">Salary</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit">Save Transaction</button>
+          </form>
+        </div>
+        <!-- Transaction Add Modal Start End -->
+      </section>
+      <!-- Transaction Add Modal End -->
+    </main>
+    <section class="form-modal">
+      <!-- Login Form Start -->
+      <div class="form-area" id="register" style="display: block">
+        <h2>Create Account</h2>
+        <h3>Join FinTrack Pro</h3>
+        <form action="" id="registerForm">
+          <label>Choose a Username</label>
+          <input type="text" />
+          <label>Password</label>
+          <input type="password" />
+          <button type="submit">register</button>
+        </form>
+        <h4>
+          Already have an account?
+          <button class="url-btn" onclick="showPage('login')">
+            Login here
+          </button>
+        </h4>
+      </div>
+      <!-- Login Form End -->
+
+      <!-- Reister Form Start -->
+      <div class="form-area" id="login" style="display: none">
+        <h2>Welcome</h2>
+        <h3>Login to FinTrack Pro</h3>
+        <form action="" id="loginForm">
+          <label>Username</label>
+          <input type="text" />
+          <label>Password</label>
+          <input type="password" />
+          <button type="submit">login</button>
+        </form>
+        <h4>
+          Don't have an account?
+          <button class="url-btn" onclick="showPage('register')">
+            Register here
+          </button>
+        </h4>
+      </div>
+      <!-- Reister Form End -->
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

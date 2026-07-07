@@ -29,43 +29,38 @@
           <button id="logoutBtn">Logout</button>
         </nav>
       </header>
-      <section class="main-container">
-        <div class="sidebar">
+      <main class="main-container">
+        <aside class="sidebar">
           <nav>
             <div>
-              <a href="/"><i class="ri-gallery-view-2"></i> dashboard</a>
-              <a href="/"><i class="ri-gallery-view-2"></i> dashboard</a>
-              <a href="/"><i class="ri-gallery-view-2"></i> dashboard</a>
-              <a href="/"><i class="ri-gallery-view-2"></i> dashboard</a>
-              <a href="/"><i class="ri-gallery-view-2"></i> dashboard</a>
-              <a href="/"><i class="ri-gallery-view-2"></i> dashboard</a>
-              <a href="/"><i class="ri-gallery-view-2"></i> dashboard</a>
-              <a href="/setting"><i class="ri-settings-4-fill"></i> setting</a>
+              <a data-page="dashboard"><i class="ri-gallery-view-2"></i> dashboard</a>
+              <a data-page="todo-list"><i class="ri-gallery-view-2"></i> todo list</a>
+              <a data-page="daily-planner"><i class="ri-gallery-view-2"></i> Daily Planner</a>
+              <a data-page="daily-goals"><i class="ri-gallery-view-2"></i> daily goals</a>
+              <a data-page="promodore"><i class="ri-gallery-view-2"></i> promodore</a>
+              <a data-page="weather"><i class="ri-gallery-view-2"></i> Weather</a>
+              <a data-page="motivation"><i class="ri-gallery-view-2"></i> Motivation</a>
+              <a data-page="settings"><i class="ri-settings-4-fill"></i> Settings</a>
             </div>
             <button id="add-transaction-btn">+ add transaction</button>
           </nav>
-        </div>
+        </aside>
         <section class="main-section">
-          <!-- Title Section Start -->
-          <section class="dashborad-head-sec">
-            <h2>Financial Overview</h2>
-            <p>Real-time tracking application</p>
-          </section>
-          <!-- Title Section End -->
-
-          <!-- Title Section Start -->
-          <section class="card-section">
-            <!-- Hear Is The dynamic Code -->
-          </section>
-          <!-- Title Section End -->
-
-          <section class="graph-container">
-            <div class="graph-main">
-              <div class="table-container">
-                <h3>Cash Flow Analysis</h3>
-                <canvas id="icomeExpenseChart"></canvas>
+           
+          <div id="dashboard" class="pageSection dashboard">
+            <h2>This is section dashboard</h2>
+          </div>
+          <!-- todo list Start-->
+          <div id="todo-list" class="pageSection todo-list">
+            <div class="page-heading">
+              <div class="headings">
+                <h2>todo list</h2>
+                <p>Manage your task efficiently.</p>
               </div>
-              <!-- Transaction Table Start -->
+              <button id="addTodoBtn">+ add todo</button>
+            </div>
+            <div class="">
+              <!-- Todo List Table Start -->
               <div class="transcation-table">
                 <div class="table-container">
                   <h3>All Transactions</h3>
@@ -88,102 +83,241 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
-                        <th>Date</th>
+                        <th>Title</th>
                         <th>Description</th>
                         <th>Category</th>
-                        <th>Type</th>
-                        <th>Amount (₹)</th>
+                        <th>Priority</th>
+                        <th>Due Date</th>
                         <th>Action</th>
                       </tr>
                     </thead>
 
-                    <tbody id="transaction-rows">
+                    <tbody id="todoListTable">
                       <!-- Dynamic rows will be added here -->
                     </tbody>
                   </table>
                 </div>
               </div>
-              <!-- Transaction Table End -->
+              <!-- Todo List Table End -->
             </div>
-            <div class="graph-sidebar">
-              <div class="transcation-table">
-                <div class="table-container">
-                  <h3>Expense Analysis</h3>
-
-                  <!-- pi chart start -->
-                  <div>
-                    <canvas id="categoryExpense"></canvas>
-                  </div>
-                  <!-- pi chart end -->
-                </div>
-              </div>
-            </div>
-          </section>
-        </section>
-      </section>
-
-      <!-- Transaction Add Modal Start -->
-      <section class="transaction-modal">
-        <div class="form-area">
-          <div class="title-area">
-            <h2>Add Transaction</h2>
-            <button id="closeModal">X</button>
           </div>
-          <form action="" id="addTransactionForm">
-            <div class="form-group">
-              <div>
-                <label>Type</label>
-                <select id="txType" required>
-                  <option value="expense">Expense</option>
-                  <option value="income">Income</option>
-                </select>
+            <!-- Add Todo Form Modal Start -->
+            <section id="todoModal" class="universal-modal">
+              <div class="form-area">
+                <div class="title-area">
+                  <h2>Add Todo.</h2>
+                  <button id="closeTodoModal">X</button>
+                </div>
+                <form id="todoForm">
+                  <label>Task Title</label>
+                  <input type="text" name="title" value="">
+                  <label>Description</label>
+                  <input
+                    id="txDescription"
+                    type="text"
+                    name="description"
+                  />
+                  <div class="form-group">
+                    <div>
+                      <label>Category</label>
+                      <select id="txType" name="category" required>
+                        <option value="work">Work</option>
+                        <option value="personal">Personal</option>
+                        <option value="study">Study</option>
+                        <option value="health">Health</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="finance">Finance</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div>
+                      <label>Priority</label>
+                      <select id="txType" name="priority" required>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                      <label>Due Date</label>
+                      <input id="txDate" type="date" name="due_date" required />
+                    </div>
+                  <button type="submit">Add Todo</button>
+                </form>
+              </div>
+            </section>
+            <!-- Add Todo Form Modal End -->
+          <!-- todo list End -->
+
+          <!-- Daily Planner Start -->
+          <div id="daily-planner" class="pageSection daily-planner">
+           <div class="page-heading">
+              <div class="headings">
+                <h2>Daily planner</h2>
+                <p>Manage your task efficiently.</p>
+              </div>
+              <button id="addDailyPlan">+ add Plan</button>
+            </div>
+          </div>
+          <!-- Daily Planner Form Modal Start -->
+             <section id="dailyPlanModal" class="universal-modal">
+              <div class="form-area">
+                <div class="title-area">
+                  <h2>Add Plan.</h2>
+                  <button id="closeDailyPlanModal">X</button>
+                </div>
+                <form >
+                  <label>Task Title</label>
+                  <input type="text">
+                  <label>Description</label>
+                  <input
+                    id="txDescription"
+                    type="text"
+                  />
+                  <div class="form-group">
+                    <div>
+                      <label>Category</label>
+                      <select id="txType" required>
+                        <option value="work">Work</option>
+                        <option value="personal">Personal</option>
+                        <option value="study">Study</option>
+                        <option value="health">Health</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="finance">Finance</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div>
+                      <label>Priority</label>
+                      <select id="txType" required>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                      <label>Due Date</label>
+                      <input id="txDate" type="date" required />
+                    </div>
+                  <button type="submit">Add Todo</button>
+                </form>
+              </div>
+            </section>
+            <!-- Daily Planner Form Modal End -->
+          <!-- Daily Planner End -->
+
+          <!-- daily goals Start -->
+          <div id="daily-goals" class="pageSection daily-goals">
+           <div class="page-heading">
+              <div class="headings">
+                <h2>goals list</h2>
+                <p>Manage your task efficiently.</p>
+              </div>
+              <button id="addDailyGoals">+ add goal</button>
+            </div>
+          </div>
+             <!-- daily goals Form Modal Start -->
+            <section id="dailyGoalsModal" class="universal-modal">
+              <div class="form-area">
+                <div class="title-area">
+                  <h2>daily goals.</h2>
+                  <button id="closeDailyGoalsModal">X</button>
+                </div>
+                <form >
+                  <label>Task Title</label>
+                  <input type="text">
+                  <label>Description</label>
+                  <input
+                    id="txDescription"
+                    type="text"
+                  />
+                  <div class="form-group">
+                    <div>
+                      <label>Category</label>
+                      <select id="txType" required>
+                        <option value="work">Work</option>
+                        <option value="personal">Personal</option>
+                        <option value="study">Study</option>
+                        <option value="health">Health</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="finance">Finance</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div>
+                      <label>Priority</label>
+                      <select id="txType" required>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                      <label>Due Date</label>
+                      <input id="txDate" type="date" required />
+                    </div>
+                  <button type="submit">Add Todo</button>
+                </form>
+              </div>
+            </section>
+            <!-- daily goals Form Modal End -->
+          <!-- daily goalse End -->
+
+          <!-- promodore -->
+          <div id="promodore" class="pageSection promodore">
+            <div class="page-heading">
+              <div class="headings">
+                <h2>todo list</h2>
+                <p>Manage your task efficiently.</p>
+              </div>
+              <button id="bhbhb">+ add todo</button>
+            </div>
+          </div>
+
+          <!-- Weather -->
+          <div id="weather" class="pageSection weather">
+           <div class="page-heading">
+              <div class="headings">
+                <h2>todo list</h2>
+                <p>Manage your task efficiently.</p>
+              </div>
+              <button id="bhbhb">+ add todo</button>
+            </div>
+          </div>
+
+          <!-- Motivation -->
+          <div id="motivation" class="pageSection motivation">
+           <div class="page-heading">
+              <div class="headings">
+                <h2>todo list</h2>
+                <p>Manage your task efficiently.</p>
+              </div>
+              <button id="bhbhb">+ New Quote</button>
+            </div>
+          </div>
+
+          <!-- Settings -->
+          <div id="settings" class="pageSection settings">
+            <div class="page-heading">
+              <div class="headings">
+                <h2>todo list</h2>
+                <p>Manage your task efficiently.</p>
               </div>
             </div>
-            <label>Description</label>
-            <input
-              id="txDescription"
-              type="text"
-              placeholder="e.g. Amazon, Salary, Coffee"
-            />
-            <div class="form-group">
-              <div>
-                <label>Ammount</label>
-                <input
-                  id="txAmount"
-                  type="number"
-                  placeholder="0000"
-                  required
-                />
-              </div>
-              <div>
-                <label>Date</label>
-                <input id="txDate" type="date" required />
-              </div>
-            </div>
-            <div class="form-group">
-              <div>
-                <label>Category</label>
-                <select id="txCategory" required>
-                  <option value="" disabled="" selected="">
-                    Select a category
-                  </option>
-                  <option value="Food Dining">Food Dining</option>
-                  <option value="Shopping">Shopping</option>
-                  <option value="Recharge Bills">Recharge Bills</option>
-                  <option value="Petrol Auto">Petrol Auto</option>
-                  <option value="Utilities">Utilities</option>
-                  <option value="Salary">Salary</option>
-                  <option value="Entertainment">Entertainment</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-            </div>
-            <button type="submit">Save Transaction</button>
-          </form>
-        </div>
-        <!-- Transaction Add Modal Start End -->
-      </section>
-      <!-- Transaction Add Modal End -->
+          </div>
+        </section>
+      </main>
+
+     
     </main>
     <section class="form-modal">
       <!-- Login Form Start -->
