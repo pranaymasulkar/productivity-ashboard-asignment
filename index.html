@@ -110,17 +110,16 @@
                 </div>
                 <form id="todoForm">
                   <label>Task Title</label>
-                  <input type="text" name="title" value="">
+                  <input type="text" id="todoTitle" >
                   <label>Description</label>
                   <input
-                    id="txDescription"
+                    id="todoDescription"
                     type="text"
-                    name="description"
                   />
                   <div class="form-group">
                     <div>
                       <label>Category</label>
-                      <select id="txType" name="category" required>
+                      <select id="todoCategory" required>
                         <option value="work">Work</option>
                         <option value="personal">Personal</option>
                         <option value="study">Study</option>
@@ -134,7 +133,7 @@
                   <div class="form-group">
                     <div>
                       <label>Priority</label>
-                      <select id="txType" name="priority" required>
+                      <select id="todoPriority" required>
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
@@ -143,7 +142,7 @@
                   </div>
                   <div>
                       <label>Due Date</label>
-                      <input id="txDate" type="date" name="due_date" required />
+                      <input  type="date" id="todoDuedate" required />
                     </div>
                   <button type="submit">Add Todo</button>
                 </form>
@@ -161,6 +160,48 @@
               </div>
               <button id="addDailyPlan">+ add Plan</button>
             </div>
+             <div class="">
+              <!-- Todo List Table Start -->
+              <div class="transcation-table">
+                <div class="table-container">
+                  <h3>All Transactions</h3>
+                  <div class="search-section">
+                    <div class="search-bar">
+                      <i class="ri-search-2-line"></i>
+                      <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search transactions..."
+                      />
+                    </div>
+                    <select id="typeFilter" class="filter-select">
+                      <option value="all">All Types</option>
+                      <option value="income">Income Only</option>
+                      <option value="expense">Expense Only</option>
+                    </select>
+                  </div>
+                  <table class="transaction-table">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Time</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Priority</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="dailyPlanListTable">
+                      <!-- Dynamic rows will be added here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- Todo List Table End -->
+            </div>
           </div>
           <!-- Daily Planner Form Modal Start -->
              <section id="dailyPlanModal" class="universal-modal">
@@ -169,18 +210,18 @@
                   <h2>Add Plan.</h2>
                   <button id="closeDailyPlanModal">X</button>
                 </div>
-                <form >
-                  <label>Task Title</label>
-                  <input type="text">
+                <form id="dailyPlanForm">
+                  <label>Plan Title</label>
+                  <input type="text" id="planTitle">
                   <label>Description</label>
                   <input
-                    id="txDescription"
+                    id="planDescription"
                     type="text"
                   />
                   <div class="form-group">
                     <div>
                       <label>Category</label>
-                      <select id="txType" required>
+                      <select id="planCategory" required>
                         <option value="work">Work</option>
                         <option value="personal">Personal</option>
                         <option value="study">Study</option>
@@ -194,7 +235,7 @@
                   <div class="form-group">
                     <div>
                       <label>Priority</label>
-                      <select id="txType" required>
+                      <select id="planPriority" required>
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
@@ -202,10 +243,14 @@
                     </div>
                   </div>
                   <div>
-                      <label>Due Date</label>
-                      <input id="txDate" type="date" required />
+                      <label>Date</label>
+                      <input id="planDate" type="date" required />
                     </div>
-                  <button type="submit">Add Todo</button>
+                    <div>
+                      <label>Time</label>
+                      <input id="planTime" type="time" required />
+                    </div>
+                  <button type="submit">Add Plan</button>
                 </form>
               </div>
             </section>
@@ -221,51 +266,62 @@
               </div>
               <button id="addDailyGoals">+ add goal</button>
             </div>
+            <div class="">
+              <!-- Todo List Table Start -->
+              <div class="transcation-table">
+                <div class="table-container">
+                  <h3>All Transactions</h3>
+                  <div class="search-section">
+                    <div class="search-bar">
+                      <i class="ri-search-2-line"></i>
+                      <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search transactions..."
+                      />
+                    </div>
+                    <select id="typeFilter" class="filter-select">
+                      <option value="all">All Types</option>
+                      <option value="income">Income Only</option>
+                      <option value="expense">Expense Only</option>
+                    </select>
+                  </div>
+                  <table class="transaction-table">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>status</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="dailyGoalsListTable">
+                      <!-- Dynamic rows will be added here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- Todo List Table End -->
+            </div>
           </div>
              <!-- daily goals Form Modal Start -->
             <section id="dailyGoalsModal" class="universal-modal">
               <div class="form-area">
                 <div class="title-area">
-                  <h2>daily goals.</h2>
+                  <h2>Add goal.</h2>
                   <button id="closeDailyGoalsModal">X</button>
                 </div>
-                <form >
+                <form id="dailyGoalsForm">
                   <label>Task Title</label>
-                  <input type="text">
+                  <input type="text" id="goalTitle">
                   <label>Description</label>
                   <input
-                    id="txDescription"
+                    id="goalDescription"
                     type="text"
                   />
-                  <div class="form-group">
-                    <div>
-                      <label>Category</label>
-                      <select id="txType" required>
-                        <option value="work">Work</option>
-                        <option value="personal">Personal</option>
-                        <option value="study">Study</option>
-                        <option value="health">Health</option>
-                        <option value="shopping">Shopping</option>
-                        <option value="finance">Finance</option>
-                        <option value="other">Other</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div>
-                      <label>Priority</label>
-                      <select id="txType" required>
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                      <label>Due Date</label>
-                      <input id="txDate" type="date" required />
-                    </div>
-                  <button type="submit">Add Todo</button>
+                  <button type="submit">Add Gaol</button>
                 </form>
               </div>
             </section>
@@ -361,6 +417,7 @@
       <!-- Reister Form End -->
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/toaster-ui@1.1.5/dist/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
   </body>
