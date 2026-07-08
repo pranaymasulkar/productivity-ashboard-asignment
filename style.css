@@ -163,6 +163,13 @@ header {
   border: 1px solid transparent;
   background-color: rgba(45, 45, 45, 0.286);
 }
+.logo {
+  text-align: center;
+}
+.logo img {
+  max-width: 100%;
+  height: auto;
+}
 header .logo span {
   font-size: 1rem;
   color: var(--wood-charcoal);
