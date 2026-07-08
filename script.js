@@ -22,6 +22,11 @@ const ADD_DAILY_GOAL_MODAL = document.querySelector("#dailyGoalsModal");
 const ADD_DAILY_GOAL_BTN = document.querySelector("#addDailyGoals");
 const CLOSE_DAILY_GOAL_MODAL = document.querySelector("#closeDailyGoalsModal");
 
+// other
+
+const CURRENT_TIME = document.querySelector("#currentTime");
+const CURRENT_DATE = document.querySelector("#currentDate");
+
 // ================================================================================
 // Data and local Storage
 // ================================================================================
@@ -87,6 +92,9 @@ function modalToggle(modal, open, close) {
 // ================================================================================
 // Add Todo Logic
 // ================================================================================
+const DASH_TODO_LIST = document.querySelector("#dashTodoList");
+const DASH_DAILY_PLAN_LIST = document.querySelector("#dashDailyPlanList");
+const DASH_DAILY_GOALS_LIST = document.querySelector("#dashDailyGoalsList");
 
 function todoUI(data) {
   TODO_LIST_TABLE.innerHTML = "";
@@ -109,6 +117,21 @@ function todoUI(data) {
           </td>
         </tr>
     `);
+  });
+  data.forEach((item, index) => {
+    return (DASH_TODO_LIST.innerHTML += `
+      <tr>
+          <td><input type="checkbox"/> ${item.title}</td>
+          <td style="width: 18%; text-align: end;">
+            <button class="edit-btn" onclick="editTodo(${item.id})">
+            <i class="ri-pencil-fill"></i>
+            </button>
+            <button class="delete-btn" onclick="deleteTodo(${item.id})">
+            <i class="ri-delete-bin-4-fill"></i>
+            </button>
+          </td>
+        </tr>
+      `);
   });
 }
 
@@ -213,6 +236,22 @@ function planUI(data) {
           </td>
         </tr>
   `);
+  });
+  data.forEach((item, index) => {
+    return (DASH_DAILY_PLAN_LIST.innerHTML += `
+     <tr>
+          <td style="width="20%"><input type="checkbox"> <strong>${item.date}</strong></td>
+          <td>${item.title}</td>
+          <td style="width: 20%; text-align: end;">
+            <button class="edit-btn" onclick="editPlan(${item.id})">
+            <i class="ri-pencil-fill"></i>
+            </button>
+            <button class="delete-btn" onclick="deletePlan(${item.id})">
+            <i class="ri-delete-bin-4-fill"></i>
+            </button>
+          </td>
+        </tr>
+      `);
   });
 }
 
@@ -329,6 +368,21 @@ function goalUI(data) {
         </tr>
     `);
   });
+  data.forEach((item, index) => {
+    return (DASH_DAILY_GOALS_LIST.innerHTML += `
+     <tr>
+          <td><input type="checkbox"> <strong>${item.title}</strong></td>
+          <td style="width: 20%; text-align: end;">
+            <button class="edit-btn" onclick="editGoal(${item.id})">
+            <i class="ri-pencil-fill"></i>
+            </button>
+            <button class="delete-btn" onclick="deleteGoal(${item.id})">
+            <i class="ri-delete-bin-4-fill"></i>
+            </button>
+          </td>
+        </tr>
+      `);
+  });
 }
 
 // ================================================================================
@@ -398,13 +452,44 @@ function deleteGoal(id) {
 // Initially Renderd Function
 // ================================================================================
 
-const url = "https://zenquotes.io/api/random";
+const url = "https://quotes-db.vercel.app/api/random";
+const photoUrl = "https://picsum.photos/200/300 █";
 
+const motivationQuote = document.querySelector("#motivationQuote");
+let quoteText = null;
 async function fetchQuates() {
-  const response = await fetch(url);
-  console.log(response, "there are qoutes");
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Data not fetched from api");
+    }
+    const data = await response.json();
+    motivationQuote.innerHTML = `"${data.quote}"`;
+    console.log(data.quote, data, "there are qoutes");
+  } catch (error) {
+    console.error(error);
+  }
 }
+console.log(motivationQuote, "i have");
 fetchQuates();
+
+// async function loadDashboard() {
+//   try {
+//     const [weatherData, quoteData, goalsData, todoData] = await Promise.all([
+//       fetch("/api/weather").then((res) => res.json()),
+//       fetch("/api/quote").then((res) => res.json()),
+//       fetch("/api/goals").then((res) => res.json()),
+//       fetch("/api/todos").then((res) => res.json()),
+//     ]);
+
+//     displayWeather(weatherData);
+//     displayQuote(quoteData);
+//     displayGoals(goalsData);
+//     displayTodos(todoData);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 // ================================================================================
 // Initially Renderd Function
 // ================================================================================
@@ -412,3 +497,27 @@ fetchQuates();
 goalUI(DAILY_GOALS_DATA);
 todoUI(TODOS_DATA);
 planUI(DAILY_PLAN_DATA);
+
+// ================================================================================
+// Current Dste And Time function
+// ================================================================================
+
+function todayDateTime() {
+  const currentTime = new Date().toLocaleTimeString("en-US");
+  const currentDate = new Date();
+  const currentDateOptions = {
+    weekday: "long",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  };
+
+  const formateCurrentTime = Intl.DateTimeFormat(
+    "en-Gb",
+    currentDateOptions,
+  ).format(currentDate);
+  CURRENT_TIME.textContent = currentTime;
+  CURRENT_DATE.textContent = formateCurrentTime;
+}
+todayDateTime();
+setInterval(todayDateTime, 1000);
