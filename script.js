@@ -77,8 +77,13 @@ document.querySelector('[data-page="dashboard"]').classList.add("active");
 // ================================================================================
 // Modal Form Open Close Logic
 // ================================================================================
-const openTodoFormModal = document.querySelector("#openTodoFormModal");
-modalOpen(openTodoFormModal, ADD_TODO_MODAL);
+const OPEN_TOTO_MODAL = document.querySelector("#openTodoFormModal");
+const OPEN_D_PLAN_MODAL = document.querySelector("#openDailyPlanFormModal");
+const OPEN_D_GOAL_MODAL = document.querySelector("#openDailyGoalFormModal");
+
+modalOpen(OPEN_TOTO_MODAL, ADD_TODO_MODAL);
+modalOpen(OPEN_D_PLAN_MODAL, ADD_DAILY_PLAN_MODAL);
+modalOpen(OPEN_D_GOAL_MODAL, ADD_DAILY_GOAL_MODAL);
 modalToggle(ADD_TODO_MODAL, ADD_TODO_BTN, CLOSE_TODO_MODAL);
 modalToggle(ADD_DAILY_PLAN_MODAL, ADD_DAILY_PLAN_BTN, CLOSE_DAILY_PLAN_MODAL);
 modalToggle(ADD_DAILY_GOAL_MODAL, ADD_DAILY_GOAL_BTN, CLOSE_DAILY_GOAL_MODAL);
@@ -127,6 +132,7 @@ function todoUI(data) {
         </tr>
     `);
   });
+  DASH_TODO_LIST.innerHTML = "";
   data.forEach((item, index) => {
     return (DASH_TODO_LIST.innerHTML += `
       <tr>
@@ -246,6 +252,7 @@ function planUI(data) {
         </tr>
   `);
   });
+  DASH_DAILY_PLAN_LIST.innerHTML = "";
   data.forEach((item, index) => {
     return (DASH_DAILY_PLAN_LIST.innerHTML += `
      <tr>
@@ -312,9 +319,9 @@ DAILY_PLAN_FORM.addEventListener("submit", (e) => {
     editPlanId = null;
   } else {
     alert("Plan Added.");
+    DAILY_PLAN_DATA.push(newPlan);
   }
 
-  DAILY_PLAN_DATA.push(newPlan);
   localStorage.setItem("daily_plans", JSON.stringify(DAILY_PLAN_DATA));
   ADD_DAILY_PLAN_MODAL.style.display = "none";
   DAILY_PLAN_FORM.reset();
@@ -377,6 +384,7 @@ function goalUI(data) {
         </tr>
     `);
   });
+  DASH_DAILY_GOALS_LIST.innerHTML = "";
   data.forEach((item, index) => {
     return (DASH_DAILY_GOALS_LIST.innerHTML += `
      <tr>
@@ -454,6 +462,7 @@ function editGoal(id) {
 
 function deleteGoal(id) {
   const goals = DAILY_GOALS_DATA.filter((goal) => goal.id !== id);
+  console.log(goals);
   localStorage.setItem("goals", JSON.stringify(goals));
 }
 
@@ -630,3 +639,167 @@ function todayDateTime() {
 }
 todayDateTime();
 setInterval(todayDateTime, 1000);
+
+// ================================================================================
+// Current Dste And Time function
+// ================================================================================
+
+const promoTime = document.getElementById("promoTime");
+
+const startBtn = document.getElementById("startBtn");
+const pauseBtn = document.getElementById("pauseBtn");
+const resetBtn = document.getElementById("resetBtn");
+
+const promoDefaulttime = document.getElementById("promoDefaulttime");
+const promoSortBreck = document.getElementById("promoSortBreck");
+const promoLongBreck = document.getElementById("promoLongBreck");
+
+const customMinutes = document.getElementById("customMinutes");
+
+const setCustomTime = document.getElementById("setCustomTime");
+const progressBar = document.getElementById("progressBar");
+const timeStatus = document.querySelector(".status");
+const sessionInfo = document.querySelector(".session-info strong");
+
+let timer = null;
+let totalSecond = 25 * 60;
+let currentSeconds = totalSecond;
+let currentSession = 1;
+let isRunning = false;
+
+// ==========================
+// Update Timer UI
+// ==========================
+function updateTimer() {
+  const minutes = Math.floor(currentSeconds / 60);
+  const seconds = currentSeconds % 60;
+  promoTime.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  const progress = ((totalSecond - currentSeconds) / totalSecond) * 100;
+  progressBar.style.width = `${progress}%`;
+}
+
+// ==========================
+// Start Timer
+// ==========================
+
+function startTime() {
+  if (isRunning) return;
+  isRunning = true;
+  timer = setInterval(() => {
+    if (currentSeconds > 0) {
+      currentSeconds--;
+      updateTimer();
+    } else {
+      clearInterval(timer);
+      isRunning = false;
+      alert("Session Completed 🎉");
+      currentSession++;
+      if (currentSession > 4) {
+        currentSession = 1;
+      }
+      sessionInfo.textContent = currentSession;
+    }
+  }, 1000);
+}
+
+// ==========================
+// Pause
+// ==========================
+
+function pauseTimer() {
+  clearInterval(timer);
+  isRunning = false;
+}
+// ==========================
+// Reset
+// ==========================
+
+function resetTimer() {
+  clearInterval(timer);
+  isRunning = false;
+  currentSeconds = totalSecond;
+  updateTimer();
+}
+
+// ==========================
+// Change Mode
+// ==========================
+
+function changeMode(minutes, text) {
+  clearInterval(timer);
+  isRunning = false;
+  totalSecond = minutes * 60;
+  currentSeconds = totalSecond;
+  timeStatus.textContent = text;
+  updateTimer();
+}
+
+// ==========================
+// Custom Time
+// ==========================
+
+setCustomTime.addEventListener("click", () => {
+  const minutes = Number(customMinutes.value);
+  if (minutes <= 0) {
+    alert("Invalid Minuts");
+    return;
+  }
+  changeMode(minutes, "Custome Timer");
+});
+
+promoDefaulttime.classList.add("active");
+promoDefaulttime.addEventListener("click", () => {
+  promoDefaulttime.classList.add("active");
+  promoSortBreck.classList.remove("active");
+  promoLongBreck.classList.remove("active");
+  startBtn.classList.remove("active");
+  pauseBtn.classList.remove("active");
+  resetBtn.classList.remove("active");
+
+  changeMode(25, "Focus Mode");
+});
+
+promoSortBreck.addEventListener("click", () => {
+  promoDefaulttime.classList.remove("active");
+  promoSortBreck.classList.add("active");
+  promoLongBreck.classList.remove("active");
+  startBtn.classList.remove("active");
+  pauseBtn.classList.remove("active");
+  resetBtn.classList.remove("active");
+
+  changeMode(5, "Short Break");
+});
+
+promoLongBreck.addEventListener("click", () => {
+  promoDefaulttime.classList.remove("active");
+  promoSortBreck.classList.remove("active");
+  promoLongBreck.classList.add("active");
+  startBtn.classList.remove("active");
+  pauseBtn.classList.remove("active");
+  resetBtn.classList.remove("active");
+
+  changeMode(15, "Long Break");
+});
+
+startBtn.addEventListener("click", () => {
+  startBtn.classList.add("active");
+  pauseBtn.classList.remove("active");
+  resetBtn.classList.remove("active");
+
+  startTime();
+});
+pauseBtn.addEventListener("click", () => {
+  startBtn.classList.remove("active");
+  pauseBtn.classList.add("active");
+  resetBtn.classList.remove("active");
+
+  pauseTimer();
+});
+resetBtn.addEventListener("click", () => {
+  startBtn.classList.remove("active");
+  pauseBtn.classList.remove("active");
+  resetBtn.classList.add("active");
+
+  resetTimer();
+});
+updateTimer();

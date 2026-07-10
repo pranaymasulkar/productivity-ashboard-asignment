@@ -84,7 +84,7 @@
         Glass
     ========================= */
 
-  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-bg: rgba(182, 182, 182, 0.334);
   --glass-border: rgba(255, 255, 255, 0.25);
 
   /* =========================
@@ -272,7 +272,7 @@ header button {
   cursor: pointer;
   color: var(--text);
   border-color: var(--primary);
-  background: var(--primary);
+  background: #6d4aff12;
 }
 .sidebar nav a:hover,
 .sidebar nav a.active {
@@ -775,7 +775,7 @@ canvas {
 .dashboard-main {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: stretch;
   gap: 2rem;
   width: 100%;
   margin-bottom: 2rem;
@@ -795,7 +795,7 @@ canvas {
 }
 
 .dashboard-main > div:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(147, 147, 147, 0.22);
   transform: translateY(-8px);
 
   border-color: #8b5cf6;
@@ -877,6 +877,41 @@ canvas {
   background: #ffffff5c;
 }
 
+.comon-search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.comon-search input {
+  display: block;
+  height: 40px;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  background: var(--input);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.comon-search button {
+  display: block;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  border-radius: 7px;
+  text-transform: capitalize;
+  text-decoration: none;
+  font-size: 1rem;
+  height: 40px;
+  font-weight: 600;
+  color: var(--text);
+  width: 100%;
+  cursor: pointer;
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  width: 30%;
+}
 .income {
   color: var(--success);
   font-weight: bold;
@@ -1009,14 +1044,6 @@ canvas {
   transition: 0.3s;
 }
 
-.pomodoro-card .session-buttons button:hover {
-  background: rgba(255, 255, 255, 0.25);
-}
-
-.pomodoro-card .session-buttons .active {
-  background: var(--primary);
-}
-
 .pomodoro-card .controls {
   display: flex;
 
@@ -1049,10 +1076,17 @@ canvas {
   transition: 0.3s;
 }
 
+.pomodoro-card .session-buttons button:hover,
 .pomodoro-card .controls button:hover {
   transform: translateY(-3px);
 
   background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.pomodoro-card .session-buttons button.active,
+.pomodoro-card .controls button.active {
+  background: var(--primary);
 }
 
 .pomodoro-card .progress {
@@ -1193,39 +1227,4 @@ canvas {
 
 .weather-card .detail-box h4 {
   font-size: 18px;
-}
-.weather-search {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-.weather-search input {
-  display: block;
-  height: 40px;
-  width: 100%;
-  padding: 1rem;
-  border-radius: 8px;
-  background: var(--input);
-  color: var(--text);
-  border: 1px solid var(--border);
-}
-.weather-search button {
-  display: block;
-  text-align: center;
-  padding: 0.5rem 1rem;
-  border-radius: 7px;
-  text-transform: capitalize;
-  text-decoration: none;
-  font-size: 1rem;
-  height: 40px;
-  font-weight: 600;
-  color: var(--text);
-  width: 100%;
-  cursor: pointer;
-  background: var(--primary);
-  color: #ffffff;
-  border: none;
-  width: 18%;
 }
