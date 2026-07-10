@@ -18,21 +18,24 @@
       <div class="main-container">
         <aside class="sidebar">
           <div class="logo">
-            <img src="./image/Screenshot_2026-07-09_at_1.40.21_AM-removebg-preview.png" alt="" />
+            <img
+              src="./image/Screenshot_2026-07-09_at_1.40.21_AM-removebg-preview.png"
+              alt=""
+            />
           </div>
           <nav>
             <div>
               <a data-page="dashboard"
-                ><i class="ri-gallery-view-2"></i> dashboard</a
+                ><i class="ri-home-4-fill"></i> dashboard</a
               >
               <a data-page="todo-list"
-                ><i class="ri-gallery-view-2"></i> todo list</a
+                ><i class="ri-task-fill"></i> todo list</a
               >
               <a data-page="daily-planner"
-                ><i class="ri-gallery-view-2"></i> Daily Planner</a
+                ><i class="ri-calendar-schedule-fill"></i> Daily Planner</a
               >
               <a data-page="daily-goals"
-                ><i class="ri-gallery-view-2"></i> daily goals</a
+                ><i class="ri-focus-3-fill"></i> daily goals</a
               >
               <a data-page="settings"
                 ><i class="ri-settings-4-fill"></i> Settings</a
@@ -63,11 +66,11 @@
                 <h2 id="currentDate"></h2>
               </div>
             </div>
-            <div class="dashboard-main"> 
+            <div class="dashboard-main">
               <div class="comon-card">
                 <div class="comon-card-head">
                   <h2>Todo List</h2>
-                  <button id="addTodoBtn">+ add todo</button>
+                  <button id="openTodoFormModal">+ add todo</button>
                 </div>
                 <table class="comon-tabel">
                   <tbody id="dashTodoList">
@@ -76,9 +79,9 @@
                 </table>
               </div>
               <div class="comon-card daily-planner-card">
-                 <div class="comon-card-head">
+                <div class="comon-card-head">
                   <h2>Daily Planner</h2>
-                  <button id="addTodoBtn">+ add plan</button>
+                  <button id="openFormModal">+ add plan</button>
                 </div>
                 <table class="comon-tabel">
                   <tbody id="dashDailyPlanList">
@@ -87,11 +90,11 @@
                 </table>
               </div>
             </div>
-            <div class="dashboard-main"> 
+            <div class="dashboard-main">
               <div class="comon-card">
                 <div class="comon-card-head">
                   <h2>Daily Goals</h2>
-                  <button id="addTodoBtn">+ add todo</button>
+                  <button id="openFormModal">+ add todo</button>
                 </div>
                 <table class="comon-tabel">
                   <tbody id="dashDailyGoalsList">
@@ -102,11 +105,111 @@
               <div class="comon-card">
                 <div class="comon-card-head">
                   <h2>Motivation quote</h2>
-                  <button id="addTodoBtn">+ new</button>
+                  <button id="openFormModal">+ new</button>
                 </div>
-                  <h2 id="motivationQuote">
-                    <!-- Dynamic rows will be added here -->
-                  </h2>
+                <h2 id="motivationQuote">
+                  <!-- Dynamic rows will be added here -->
+                </h2>
+              </div>
+            </div>
+            <div class="dashboard-main">
+              <div class="comon-card">
+                <div class="pomodoro-card">
+                  <div class="card-header">
+                    <h2>🍅 Pomodoro Timer</h2>
+                    <span class="status">Focus Mode</span>
+                  </div>
+
+                  <div class="timer">
+                    <h1 id="time">25:00</h1>
+                  </div>
+
+                  <div class="session-buttons">
+                    <button class="active">Pomodoro</button>
+                    <button>Short Break</button>
+                    <button>Long Break</button>
+                  </div>
+
+                  <div class="controls">
+                    <button id="startBtn">▶ Start</button>
+                    <button id="pauseBtn">⏸ Pause</button>
+                    <button id="resetBtn">⟲ Reset</button>
+                  </div>
+
+                  <div class="progress">
+                    <div class="progress-bar"></div>
+                  </div>
+
+                  <p class="session-info">
+                    🍅 Session <strong>1</strong> of <strong>4</strong>
+                  </p>
+                </div>
+              </div>
+              <div class="comon-card">
+                <div class="weather-search">
+                  <input
+                    type="text"
+                    id="cityInput"
+                    placeholder="Enter City Name..."
+                  />
+
+                  <button id="searchBtn">Search</button>
+                </div>
+                <div class="weather-card">
+                  <div class="weather-header">
+                    <div>
+                      <h2>🌤 Weather</h2>
+                      <p class="location">Nagpur, India</p>
+                    </div>
+
+                    <img
+                      src="https://openweathermap.org/img/wn/01d@2x.png"
+                      alt="Weather Icon"
+                      class="weather-icon"
+                    />
+                  </div>
+
+                  <div class="temperature">
+                    <h1>31°C</h1>
+                    <p>Feels like 34°C</p>
+                  </div>
+
+                  <div class="weather-condition">☀️ Clear Sky</div>
+
+                  <div class="weather-details">
+                    <div class="detail-box">
+                      <span>💧</span>
+                      <div>
+                        <small>Humidity</small>
+                        <h4>68%</h4>
+                      </div>
+                    </div>
+
+                    <div class="detail-box">
+                      <span>💨</span>
+                      <div>
+                        <small>Wind</small>
+                        <h4>12 km/h</h4>
+                      </div>
+                    </div>
+
+                    <div class="detail-box">
+                      <span>🌅</span>
+                      <div>
+                        <small>Sunrise</small>
+                        <h4>06:03 AM</h4>
+                      </div>
+                    </div>
+
+                    <div class="detail-box">
+                      <span>🌇</span>
+                      <div>
+                        <small>Sunset</small>
+                        <h4>06:52 PM</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

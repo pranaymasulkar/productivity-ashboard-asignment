@@ -1,124 +1,93 @@
 .dark-theme {
-  /* =========================
-        Brand
-    ========================= */
-
-  --primary: #8b5cf6;
-  --primary-hover: #a78bfa;
-  --primary-light: #332061;
-
-  --success: #22c55e;
-  --warning: #fbbf24;
-  --danger: #f87171;
-
-  /* =========================
-        Background
-    ========================= */
-
+  /* Background */
+  --surface: #111827;
   --bg: #0f172a;
-  --surface: #182233;
   --surface-2: #1e293b;
 
-  /* =========================
-        Glass
-    ========================= */
-
-  --glass-bg: rgba(30, 41, 59, 0.45);
-  --glass-border: rgba(255, 255, 255, 0.08);
-
-  /* =========================
-        Sidebar
-    ========================= */
-
-  --sidebar: #111827;
-
-  /* =========================
-        Text
-    ========================= */
-
-  --heading: #f9fafb;
-  --text: #e5e7eb;
+  /* Text */
+  --black: #f9fafb;
+  --text: #f8fafc;
+  --wood-charcoal: #d1d5db;
+  --brilliant: #cbd5e1;
   --muted: #94a3b8;
 
-  /* =========================
-        Border
-    ========================= */
-
+  /* Borders */
   --border: #334155;
+  --steam: #475569;
+  --cerebralgrey: #64748b;
 
-  /* =========================
-        Input
-    ========================= */
+  /* Brand */
+  --green: #22c55e;
+  --green-primary: #4ade80;
+  --red: #ef4444;
+  --red-primary: #f87171;
+  --blue-gungeon: #3b82f6;
 
-  --input: #1e293b;
+  /* Cards */
+  --hoarfrost: #1e3a8a;
+  --toxiclatte: #14532d;
+  --mistyrose: #7f1d1d;
 
-  /* =========================
-        Shadow
-    ========================= */
+  /* Buttons */
+  --button-bg: #2563eb;
+  --button-text: #ffffff;
 
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  /* Inputs */
+  --input-bg: #1f2937;
+  --input-border: #374151;
+
+  /* Shadows */
+  --shadow: rgba(0, 0, 0, 0.45);
+  --sidebar-bg: #172033;
 }
 
 :root {
-  /* =========================
-        Brand
-    ========================= */
-
-  --primary: #6d4aff;
-  --primary-hover: #5b3df2;
-  --primary-light: #eee9ff;
-
-  --success: #22c55e;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-
-  /* =========================
-        Background
-    ========================= */
-
-  --bg: #f4f7fb;
+  /* Background */
   --surface: #ffffff;
-  --surface-2: #f8fafc;
+  --bg: #f8f9fb;
+  --surface-2: #f7f7f7;
 
-  /* =========================
-        Glass
-    ========================= */
-
-  --glass-bg: rgba(255, 255, 255, 0.45);
-  --glass-border: rgba(255, 255, 255, 0.25);
-
-  /* =========================
-        Sidebar
-    ========================= */
-
-  --sidebar: #ffffff;
-
-  /* =========================
-        Text
-    ========================= */
-
-  --heading: #111827;
-  --text: #374151;
+  /* Text */
+  --black: #000000;
+  --text: #111827;
+  --wood-charcoal: #464646;
+  --brilliant: #545454;
   --muted: #6b7280;
 
-  /* =========================
-        Border
-    ========================= */
-
+  /* Borders */
   --border: #e5e7eb;
+  --steam: #dddddd;
+  --cerebralgrey: #cccccc;
 
-  /* =========================
-        Input
-    ========================= */
+  /* Brand */
+  --green: #f1ecfa;
+  --green-primary: #166534;
+  --red: #ff0000;
+  --red-primary: #991b1b;
+  --blue-gungeon: #0065e8;
 
-  --input: #ffffff;
+  /* Cards */
+  --hoarfrost: #dbeafe;
+  --toxiclatte: #dcfce7;
+  --mistyrose: #fee2e2;
 
-  /* =========================
-        Shadow
-    ========================= */
+  /* Buttons */
+  --button-bg: #111827;
+  --button-text: #ffffff;
 
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  /* Inputs */
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+
+  /* Shadows */
+  --shadow: rgba(0, 0, 0, 0.08);
+  --sidebar-bg: #f8fafc;
+
+  /* Productive Dashoard */
+  --leticiaz: #f1ecfa;
+  --primary: #6834c5;
 }
+
 /* ==========================
       Main CSS
   ========================== */
@@ -136,6 +105,7 @@ html {
 body {
   height: 100%;
   width: 100%;
+  background-color: var(--doctor);
   font-family:
     system-ui,
     -apple-system,
@@ -150,8 +120,7 @@ body {
     sans-serif;
   position: relative;
   overflow: hidden;
-  border-color: var(--primary);
-  background: var(--primary);
+  color: var(--text);
   background-image: url(https://images.unsplash.com/photo-1783410079079-a60cb566e7ad?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
   background-repeat: no-repeat;
   background-position: center;
@@ -163,23 +132,23 @@ h3 {
 main {
   height: 100%;
   width: 100%;
-  /* background-color: var(--bg); */
+  /* background-color: var(--doctor); */
 }
 .main-container {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  align-items: start;
   height: 100%;
-  border-left: 1px solid var(--border);
-  backdrop-filter: blur(10px);
-  background: var(--glass-bg);
+  width: 100%;
+  overflow: hidden;
+  background: rgba(67, 67, 67, 0.286);
 }
 .main-section {
   height: 100%;
   width: calc(100% - 17%);
   overflow-y: scroll;
-  padding-top: 90px;
   border-left: 1px solid var(--border);
+  padding-top: 90px;
 }
 header {
   height: 100px;
@@ -191,9 +160,8 @@ header {
   box-shadow: 0 2px 10px var(--shadow);
   position: fixed;
   top: 0;
-  backdrop-filter: blur(20px);
-  background: var(--glass-bg);
-  border-bottom: 1px solid var(--glass-border);
+  border: 1px solid transparent;
+  background-color: rgba(45, 45, 45, 0.286);
 }
 .logo {
   text-align: center;
@@ -230,6 +198,8 @@ header nav {
   color: #fff;
 }
 header button {
+  background-color: var(--primary);
+  color: #fff;
   text-align: center;
   text-transform: capitalize;
   font-size: 1rem;
@@ -237,17 +207,14 @@ header button {
   height: 40px;
   border-radius: 50px;
   cursor: pointer;
-  background: var(--primary);
-  color: #fff;
 }
 
 .sidebar {
-  padding: 2rem 1rem;
   width: 17%;
   height: 100%;
-  backdrop-filter: blur(30px);
-  background: var(--glass-bg);
-  border-right: 1px solid var(--glass-border);
+  padding: 2rem 1rem;
+  background: var(--border);
+  border-right: 1px solid var(--border);
 }
 .sidebar .logo {
 }
@@ -268,23 +235,22 @@ header button {
   text-decoration: none;
   font-size: 1rem;
   font-weight: 600;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid transparent;
   transition: all 0.25s ease;
   cursor: pointer;
-  color: var(--text);
-  border-color: var(--primary);
-  background: var(--primary);
 }
 .sidebar nav a:hover,
 .sidebar nav a.active {
-  transform: translateX(6px);
+  background: var(--surface);
   border-color: var(--primary);
-  background: var(--primary);
-  color: white;
+  transform: translateX(4px);
+  color: var(--primary);
 }
 .sidebar nav a i {
   font-size: 1rem;
   margin-right: 0.5rem;
-  color: inherit;
 }
 .sidebar nav button {
   display: block;
@@ -331,10 +297,10 @@ header button {
 .universal-modal .form-area {
   width: 30%;
   padding: 2rem;
+  background-color: var(--surface-2);
   border-radius: 10px;
   box-shadow: 0px 0px 8px -4px #000000;
   text-align: center;
-  background: var(--surface);
 }
 .form-modal form,
 .universal-modal form {
@@ -453,42 +419,41 @@ header button {
   width: 100%;
   overflow-x: auto;
   margin-top: 20px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 1rem;
   position: relative;
   box-shadow: 0 4px 12px var(--shadow);
-  background: var(--surface);
-
-  border: 1px solid var(--border);
 }
 
 .transaction-table {
   width: 100%;
   border-collapse: collapse;
+  background: var(--surface);
   border-radius: 10px;
   overflow: hidden;
   margin-top: 1rem;
-  background: var(--surface);
 }
 
 .transaction-table th {
   text-align: left;
   padding: 12px 8px;
-  font-size: 14px;
   border-bottom: 1px solid var(--border);
   color: var(--muted);
+  font-size: 14px;
 }
 
 .transaction-table td {
   padding: 11px 8px;
-  font-size: 14px;
   border-bottom: 1px solid var(--border);
+  font-size: 14px;
 }
 .transaction-table td .categry {
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 12px;
-  background: var(--bg);
+  background: var(--doctor);
 }
 
 .transaction-table tbody tr:hover {
@@ -543,11 +508,11 @@ header button {
 .card-section .card {
   height: 150px;
   width: 100%;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 20px;
   position: relative;
-  background: var(--surface);
-  border: 1px solid var(--border);
 }
 .card-section .card p {
   color: var(--muted);
@@ -663,29 +628,29 @@ header button {
   display: flex;
   align-items: center;
   gap: 8px;
+  background-color: var(--doctor);
   padding: 10px 16px;
   border-radius: 8px;
   width: 100%;
-  background: var(--surface);
   border: 1px solid var(--border);
 }
 .search-bar input {
   border: none;
+  background: var(--doctor);
   outline: none;
   width: 100%;
-  background: transparent;
   color: var(--text);
 }
 
 .filter-select {
   padding: 10px;
+  border: 1px solid var(--border);
   border-radius: 8px;
+  background: var(--doctor);
+  color: var(--text);
   cursor: pointer;
   outline: none;
   width: 100%;
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--border);
 }
 canvas {
   margin: 1rem 0 0 0;
@@ -739,12 +704,12 @@ canvas {
   letter-spacing: 5px;
 }
 #currentDate {
+  color: var(--surface);
   font-size: 1rem;
   font-weight: 400;
   text-transform: capitalize;
   letter-spacing: 1px;
   margin-top: 0.3rem;
-  color: #d8d8d8;
 }
 .pageSection .page-heading .headings {
   width: 70%;
@@ -762,12 +727,13 @@ canvas {
   text-decoration: none;
   font-size: 1rem;
   font-weight: 600;
+  color: var(--text);
   width: 100%;
   cursor: pointer;
+  background: var(--primary);
+  color: #ffffff;
   border: none;
   width: 15%;
-  color: #ffffff;
-  background: var(--primary);
 }
 
 /* Dashboard designe */
@@ -782,25 +748,25 @@ canvas {
 }
 
 .dashboard-main > div {
+  background: rgba(255, 255, 255, 0.487);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  color: #fff;
   padding: 20px;
+  transition: 0.3s ease;
   font-size: 22px;
   font-weight: 600;
-  backdrop-filter: blur(25px);
-  border-radius: 22px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.22);
-  color: #fff;
-  transition: 0.35s;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
 }
 
 .dashboard-main > div:hover {
+  transform: translateY(-6px);
+
   background: rgba(255, 255, 255, 0.22);
-  transform: translateY(-8px);
 
-  border-color: #8b5cf6;
-
-  box-shadow: 0 15px 45px rgba(109, 74, 255, 0.35);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
 }
 
 /* Weather */
@@ -820,7 +786,7 @@ canvas {
   justify-content: space-between;
   align-items: center;
   font-size: 1rem;
-  color: #ffffff;
+  color: #000000;
 }
 .comon-card-head h2 {
   font-size: 1.15rem;
@@ -870,7 +836,7 @@ canvas {
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 12px;
-  background: var(--bg);
+  background: var(--doctor);
 }
 
 .comon-tabel tbody tr:hover {
@@ -936,14 +902,21 @@ canvas {
 /* promodore card */
 .pomodoro-card {
   width: 100%;
+
   padding: 25px;
+
   border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.15);
+
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
+
   color: black;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
 }
 
 .pomodoro-card .card-header {
@@ -1091,14 +1064,21 @@ canvas {
 
 .weather-card {
   width: 100%;
+
   padding: 25px;
+
   border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.15);
+
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.18);
+
   color: #fff;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
 }
 
 .weather-card .weather-header {

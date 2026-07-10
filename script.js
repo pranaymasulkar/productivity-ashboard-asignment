@@ -12,6 +12,10 @@ const CLOSE_TODO_MODAL = document.querySelector("#closeTodoModal");
 const TODO_FORM = document.querySelector("#todoForm");
 const TODO_LIST_TABLE = document.querySelector("#todoListTable");
 
+const DASH_TODO_LIST = document.querySelector("#dashTodoList");
+const DASH_DAILY_PLAN_LIST = document.querySelector("#dashDailyPlanList");
+const DASH_DAILY_GOALS_LIST = document.querySelector("#dashDailyGoalsList");
+
 // Daily Plan Modal
 const ADD_DAILY_PLAN_MODAL = document.querySelector("#dailyPlanModal");
 const ADD_DAILY_PLAN_BTN = document.querySelector("#addDailyPlan");
@@ -73,7 +77,8 @@ document.querySelector('[data-page="dashboard"]').classList.add("active");
 // ================================================================================
 // Modal Form Open Close Logic
 // ================================================================================
-
+const openTodoFormModal = document.querySelector("#openTodoFormModal");
+modalOpen(openTodoFormModal, ADD_TODO_MODAL);
 modalToggle(ADD_TODO_MODAL, ADD_TODO_BTN, CLOSE_TODO_MODAL);
 modalToggle(ADD_DAILY_PLAN_MODAL, ADD_DAILY_PLAN_BTN, CLOSE_DAILY_PLAN_MODAL);
 modalToggle(ADD_DAILY_GOAL_MODAL, ADD_DAILY_GOAL_BTN, CLOSE_DAILY_GOAL_MODAL);
@@ -89,12 +94,16 @@ function modalToggle(modal, open, close) {
   });
 }
 
+function modalOpen(close, modal) {
+  close.addEventListener("click", () => {
+    modal.style.display = "flex";
+    console.log("open");
+  });
+}
+
 // ================================================================================
 // Add Todo Logic
 // ================================================================================
-const DASH_TODO_LIST = document.querySelector("#dashTodoList");
-const DASH_DAILY_PLAN_LIST = document.querySelector("#dashDailyPlanList");
-const DASH_DAILY_GOALS_LIST = document.querySelector("#dashDailyGoalsList");
 
 function todoUI(data) {
   TODO_LIST_TABLE.innerHTML = "";
@@ -453,7 +462,6 @@ function deleteGoal(id) {
 // ================================================================================
 
 const url = "https://quotes-db.vercel.app/api/random";
-const photoUrl = "https://picsum.photos/200/300 █";
 
 const motivationQuote = document.querySelector("#motivationQuote");
 let quoteText = null;
@@ -473,23 +481,124 @@ async function fetchQuates() {
 console.log(motivationQuote, "i have");
 fetchQuates();
 
-// async function loadDashboard() {
-//   try {
-//     const [weatherData, quoteData, goalsData, todoData] = await Promise.all([
-//       fetch("/api/weather").then((res) => res.json()),
-//       fetch("/api/quote").then((res) => res.json()),
-//       fetch("/api/goals").then((res) => res.json()),
-//       fetch("/api/todos").then((res) => res.json()),
-//     ]);
+const cityInput = document.querySelector("#cityInput");
+const searchBtn = document.querySelector("#searchBtn");
 
-//     displayWeather(weatherData);
-//     displayQuote(quoteData);
-//     displayGoals(goalsData);
-//     displayTodos(todoData);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+// Weather Elements
+const cityName = document.querySelector(".location");
+const temperature = document.querySelector(".temperature h1");
+const feelsLike = document.querySelector(".temperature p");
+const weatherCondition = document.querySelector(".weather-condition");
+
+const humidity = document.querySelector("#humidity");
+const wind = document.querySelector("#wind");
+const sunrise = document.querySelector("#sunrise");
+const sunset = document.querySelector("#sunset");
+
+// Weather Code
+const weatherCodes = {
+  0: "☀️ Clear Sky",
+  1: "🌤 Mainly Clear",
+  2: "⛅ Partly Cloudy",
+  3: "☁️ Overcast",
+  45: "🌫 Fog",
+  48: "🌫 Dense Fog",
+  51: "🌦 Light Drizzle",
+  53: "🌦 Moderate Drizzle",
+  55: "🌧 Heavy Drizzle",
+  61: "🌦 Light Rain",
+  63: "🌧 Rain",
+  65: "🌧 Heavy Rain",
+  71: "❄️ Snow",
+  80: "🌦 Rain Showers",
+  95: "⛈ Thunderstorm",
+};
+
+// Convert City → Latitude & Longitude
+async function getCoordinates(city) {
+  const response = await fetch(
+    `https://nominatim.openstreetmap.org/search?format=json&q=${city}`,
+  );
+
+  const data = await response.json();
+
+  if (data.length === 0) {
+    alert("City Not Found");
+    return null;
+  }
+
+  return {
+    lat: data[0].lat,
+    lon: data[0].lon,
+    name: data[0].display_name,
+  };
+}
+
+// Fetch Weather
+async function getWeather(city) {
+  try {
+    const location = await getCoordinates(city);
+
+    if (!location) return;
+
+    const weatherResponse = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${location.lat}&longitude=${location.lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m&daily=sunrise,sunset&timezone=auto`,
+    );
+
+    const weather = await weatherResponse.json();
+
+    updateUI(location, weather);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// Update UI
+function updateUI(location, data) {
+  cityName.textContent = location.name;
+
+  temperature.textContent = `${data.current.temperature_2m}°C`;
+
+  feelsLike.textContent = `Feels Like ${data.current.apparent_temperature}°C`;
+
+  weatherCondition.textContent = weatherCodes[data.current.weather_code];
+
+  humidity.textContent = `${data.current.relative_humidity_2m}%`;
+
+  wind.textContent = `${data.current.wind_speed_10m} km/h`;
+
+  sunrise.textContent = new Date(data.daily.sunrise[0]).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  sunset.textContent = new Date(data.daily.sunset[0]).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+// Search Button
+searchBtn.addEventListener("click", () => {
+  const city = cityInput.value.trim();
+
+  if (!city) {
+    alert("Please Enter City");
+    return;
+  }
+
+  getWeather(city);
+});
+
+// Enter Key
+cityInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    getWeather(cityInput.value.trim());
+  }
+});
+
+// Default Weather
+getWeather("Nagpur");
 // ================================================================================
 // Initially Renderd Function
 // ================================================================================
