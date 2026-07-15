@@ -47,7 +47,7 @@
           <header>
             <nav>
               <label class="switch">
-                <input id="dark-mode-btn" type="checkbox"/>
+                <input id="dark-mode-btn" type="checkbox" />
                 <span class="slider round"></span>
               </label>
               <!-- <h3 id="profileName"></h3>
@@ -78,10 +78,6 @@
               </div>
 
               <div class="comon-card">
-                <div class="comon-card-head">
-                  <h2>Motivation quote</h2>
-                  <button id="openFormModal">+ new</button>
-                </div>
                 <h2 id="motivationQuote">
                   <!-- Dynamic rows will be added here -->
                 </h2>
@@ -110,16 +106,16 @@
               </div>
             </div>
             <div class="dashboard-main">
-               <div class="comon-card">
-                 <div class="comon-search">
-                   <input
-                     type="number"
-                     id="customMinutes"
-                     min="1"
-                     placeholder="Minutes"
-                   />
-                   <button id="setCustomTime">Set Time</button>
-                 </div>
+              <div class="comon-card">
+                <div class="comon-search">
+                  <input
+                    type="number"
+                    id="customMinutes"
+                    min="1"
+                    placeholder="Minutes"
+                  />
+                  <button id="setCustomTime">Set Time</button>
+                </div>
                 <div class="pomodoro-card">
                   <div class="card-header">
                     <h2>🍅 Pomodoro Timer</h2>
@@ -232,20 +228,25 @@
               <!-- Todo List Table Start -->
               <div class="transcation-table">
                 <div class="table-container">
-                  <h3>All Transactions</h3>
+                  <h3>All Todo List</h3>
                   <div class="search-section">
                     <div class="search-bar">
                       <i class="ri-search-2-line"></i>
                       <input
                         type="text"
                         id="searchInput"
-                        placeholder="Search transactions..."
+                        placeholder="Search..."
                       />
                     </div>
                     <select id="typeFilter" class="filter-select">
                       <option value="all">All Types</option>
-                      <option value="income">Income Only</option>
-                      <option value="expense">Expense Only</option>
+                      <option value="work">Work</option>
+                      <option value="personal">Personal</option>
+                      <option value="study">Study</option>
+                      <option value="health">Health</option>
+                      <option value="shopping">Shopping</option>
+                      <option value="finance">Finance</option>
+                      <option value="other">Other</option>
                     </select>
                   </div>
                   <table class="transaction-table">
@@ -330,20 +331,25 @@
               <!-- Todo List Table Start -->
               <div class="transcation-table">
                 <div class="table-container">
-                  <h3>All Transactions</h3>
+                  <h3>All Daily Planner List</h3>
                   <div class="search-section">
                     <div class="search-bar">
                       <i class="ri-search-2-line"></i>
                       <input
                         type="text"
                         id="searchInput"
-                        placeholder="Search transactions..."
+                        placeholder="Search..."
                       />
                     </div>
                     <select id="typeFilter" class="filter-select">
                       <option value="all">All Types</option>
-                      <option value="income">Income Only</option>
-                      <option value="expense">Expense Only</option>
+                     <option value="work">Work</option>
+                      <option value="personal">Personal</option>
+                      <option value="study">Study</option>
+                      <option value="health">Health</option>
+                      <option value="shopping">Shopping</option>
+                      <option value="finance">Finance</option>
+                      <option value="other">Other</option>
                     </select>
                   </div>
                   <table class="transaction-table">
@@ -433,20 +439,20 @@
               <!-- Todo List Table Start -->
               <div class="transcation-table">
                 <div class="table-container">
-                  <h3>All Transactions</h3>
+                  <h3>All Goals List</h3>
                   <div class="search-section">
                     <div class="search-bar">
                       <i class="ri-search-2-line"></i>
                       <input
                         type="text"
                         id="searchInput"
-                        placeholder="Search transactions..."
+                        placeholder="Search..."
                       />
                     </div>
                     <select id="typeFilter" class="filter-select">
-                      <option value="all">All Types</option>
-                      <option value="income">Income Only</option>
-                      <option value="expense">Expense Only</option>
+                      <option value="all">All</option>
+                      <option value="income">Complete Only</option>
+                      <option value="expense">Incomplete Only</option>
                     </select>
                   </div>
                   <table class="transaction-table">
@@ -488,48 +494,44 @@
           <!-- daily goals Form Modal End -->
           <!-- daily goalse End -->
 
-          <!-- promodore -->
-          <div id="promodore" class="pageSection promodore">
-            <div class="page-heading">
-              <div class="headings">
-                <h2>todo list</h2>
-                <p>Manage your task efficiently.</p>
-              </div>
-              <button id="bhbhb">+ add todo</button>
-            </div>
-          </div>
-
-          <!-- Weather -->
-          <div id="weather" class="pageSection weather">
-            <div class="page-heading">
-              <div class="headings">
-                <h2>todo list</h2>
-                <p>Manage your task efficiently.</p>
-              </div>
-              <button id="bhbhb">+ add todo</button>
-            </div>
-          </div>
-
-          <!-- Motivation -->
-          <div id="motivation" class="pageSection motivation">
-            <div class="page-heading">
-              <div class="headings">
-                <h2>todo list</h2>
-                <p>Manage your task efficiently.</p>
-              </div>
-              <button id="bhbhb">+ New Quote</button>
-            </div>
-          </div>
-
-          <!-- Settings -->
+          <!-- Settings Start-->
           <div id="settings" class="pageSection settings">
             <div class="page-heading">
               <div class="headings">
-                <h2>todo list</h2>
+                <h2>Settings</h2>
                 <p>Manage your task efficiently.</p>
               </div>
             </div>
+            <div class="dashboard-main">
+              <div class="comon-card">
+                <div class="comon-card-head">
+                  <h2>Background Images</h2>
+                  <button id="addBgImageModel">+ add Images</button>
+                </div>
+                <div class="comon-tabel">
+                <div id="bgImagesContainer">
+                  
+                </div>
+                </div>
+              </div>
+            </div>
           </div>
+            <!-- daily goals Form Modal Start -->
+          <section id="bgImageModal" class="universal-modal">
+            <div class="form-area">
+              <div class="title-area">
+                <h2>Add Bacgroud Image.</h2>
+                <button id="closeBgImageModal">X</button>
+              </div>
+              <form id="bgImageAddForm">
+                <label>Image Url</label>
+                <input id="bgUrl" type="url" />
+                <button id="bgSubmit" type="submit">Add Gaol</button>
+              </form>
+            </div>
+          </section>
+          <!-- daily goals Form Modal End -->
+          <!-- setting End -->
         </section>
       </div>
     </main>

@@ -25,12 +25,12 @@
 
   --glass-bg: rgba(30, 41, 59, 0.45);
   --glass-border: rgba(255, 255, 255, 0.08);
-
+  --glass-bg-dark: rgb(15 24 40 / 93%);
   /* =========================
         Sidebar
     ========================= */
 
-  --sidebar: #111827;
+  --main: #0f1828;
 
   /* =========================
         Text
@@ -86,12 +86,11 @@
 
   --glass-bg: rgba(182, 182, 182, 0.334);
   --glass-border: rgba(255, 255, 255, 0.25);
-
+  --glass-bg-dark: rgba(147, 147, 147, 0.22);
   /* =========================
         Sidebar
     ========================= */
-
-  --sidebar: #ffffff;
+  --main: #ffffff;
 
   /* =========================
         Text
@@ -150,8 +149,6 @@ body {
     sans-serif;
   position: relative;
   overflow: hidden;
-  border-color: var(--primary);
-  background: var(--primary);
   background-image: url(https://images.unsplash.com/photo-1783410079079-a60cb566e7ad?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
   background-repeat: no-repeat;
   background-position: center;
@@ -171,8 +168,6 @@ main {
   width: 100%;
   height: 100%;
   border-left: 1px solid var(--border);
-  backdrop-filter: blur(10px);
-  background: var(--glass-bg);
 }
 .main-section {
   height: 100%;
@@ -192,7 +187,7 @@ header {
   position: fixed;
   top: 0;
   backdrop-filter: blur(20px);
-  background: var(--glass-bg);
+  background: var(--main);
   border-bottom: 1px solid var(--glass-border);
 }
 .logo {
@@ -245,8 +240,7 @@ header button {
   padding: 2rem 1rem;
   width: 17%;
   height: 100%;
-  backdrop-filter: blur(30px);
-  background: var(--glass-bg);
+  background: var(--main);
   border-right: 1px solid var(--glass-border);
 }
 .sidebar .logo {
@@ -795,7 +789,7 @@ canvas {
 }
 
 .dashboard-main > div:hover {
-  background: rgba(147, 147, 147, 0.22);
+  background: var(--glass-bg-dark);
   transform: translateY(-8px);
 
   border-color: #8b5cf6;
@@ -835,12 +829,13 @@ canvas {
   text-decoration: none;
   font-size: 1rem;
   font-weight: 600;
+  text-align: end;
   color: var(--primary);
   width: 100%;
   cursor: pointer;
   background: transparent;
   border: none;
-  width: 20%;
+  width: 30%;
 }
 
 .comon-tabel {
@@ -959,8 +954,8 @@ canvas {
   -webkit-backdrop-filter: blur(18px);
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-  color: var(--primary);
-  padding: 2rem 1rem;
+  color: var(--text);
+  padding: 3rem 1rem;
   transition: 0.3s ease;
   font-size: 1.5rem;
   font-weight: 500;
@@ -1227,4 +1222,40 @@ canvas {
 
 .weather-card .detail-box h4 {
   font-size: 18px;
+}
+
+#bgImagesContainer {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+}
+#bgImagesContainer .imageBox {
+  height: 100px;
+  width: 100px;
+  border-radius: 8px;
+  border: 2px solid var(--primary);
+  position: relative;
+}
+#bgImagesContainer .imageBox img {
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+#bgImagesContainer .imageBox .checkCircle {
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+  position: absolute;
+  border: 2px solid transparent;
+  right: 5px;
+  top: 5px;
+  background-color: transparent;
+}
+#bgImagesContainer .imageBox.active .checkCircle {
+  background-color: var(--main);
+  border: 2px solid var(--primary);
 }

@@ -36,6 +36,15 @@ const DAILY_GOALS_FORM = document.querySelector("#dailyGoalsForm");
 const CURRENT_TIME = document.querySelector("#currentTime");
 const CURRENT_DATE = document.querySelector("#currentDate");
 
+// Bacground Image
+
+const ADD_BG_IMG_MODAL = document.querySelector("#addBgImageModel");
+const bgImagesContainer = document.querySelector("#bgImagesContainer");
+const BG_IMG_MODAL = document.querySelector("#bgImageModal");
+const CLOSE_BG_IMG_MODAL = document.querySelector("#closeBgImageModal");
+const BG_IMG_ADD_FORM = document.querySelector("#bgImageAddForm");
+const BG_IMG_CONTAINER = document.querySelector("#bgImagesContainer");
+
 // ================================================================================
 // Data and local Storage
 // ================================================================================
@@ -43,8 +52,13 @@ const CURRENT_DATE = document.querySelector("#currentDate");
 const TODOS_DATA = JSON.parse(localStorage.getItem("todos")) || [];
 const DAILY_PLAN_DATA = JSON.parse(localStorage.getItem("daily_plans")) || [];
 const DAILY_GOALS_DATA = JSON.parse(localStorage.getItem("goals")) || [];
+const BACGROUND_IMAGES = JSON.parse(localStorage.getItem("backgrouds")) || [];
 const THEAM = JSON.parse(localStorage.getItem("theme"));
-
+const CurrentBackground = JSON.parse(
+  localStorage.getItem("CurrentBackground"),
+) || {
+  url: "https://images.unsplash.com/photo-1783410079079-a60cb566e7ad?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+};
 // ================================================================================
 // Page Navigation Logis
 // ================================================================================
@@ -103,7 +117,12 @@ modalToggle(
   CLOSE_DAILY_GOAL_MODAL,
   DAILY_GOALS_FORM,
 );
-
+modalToggle(
+  BG_IMG_MODAL,
+  ADD_BG_IMG_MODAL,
+  CLOSE_BG_IMG_MODAL,
+  BG_IMG_ADD_FORM,
+);
 function modalToggle(modal, open, close, form) {
   modal.style.display = "none";
   open.addEventListener("click", () => {
@@ -384,7 +403,7 @@ function deletePlan(id) {
   if (index !== -1) {
     DAILY_PLAN_DATA.splice(index, 1);
   }
-  localStorage.setItem("todos", JSON.stringify(DAILY_PLAN_DATA));
+  localStorage.setItem("daily_plans", JSON.stringify(DAILY_PLAN_DATA));
   planUI(DAILY_PLAN_DATA);
 }
 
@@ -460,8 +479,8 @@ DAILY_GOALS_FORM.addEventListener("submit", (e) => {
   if (editGoalId !== null) {
     const goal = DAILY_GOALS_DATA.find((goal) => goal.id === editGoalId);
 
-    goal.title = title;
-    goal.description = description;
+    goal.title = goalTitle;
+    goal.description = goalDescription;
 
     editGoalId = null;
     alert("Goal Update.");
@@ -500,7 +519,7 @@ function deleteGoal(id) {
   if (index !== -1) {
     DAILY_GOALS_DATA.splice(index, 1);
   }
-  localStorage.setItem("todos", JSON.stringify(DAILY_GOALS_DATA));
+  localStorage.setItem("goals", JSON.stringify(DAILY_GOALS_DATA));
   goalUI(DAILY_GOALS_DATA);
 }
 
@@ -855,9 +874,60 @@ DARK_MODE_BTN.addEventListener("change", () => {
 });
 
 // ================================================================================
+// Background Change
+// ================================================================================
+
+function bgUI(data) {
+  BG_IMG_CONTAINER.innerHTML = "";
+  data.forEach((item) => {
+    return (BG_IMG_CONTAINER.innerHTML += `
+      <div onclick="setBgImg(${item.id}, this)" class="imageBox">
+      <span class="checkCircle"></span>
+  <img src="${item.url}"/>
+  </div>
+  `);
+  });
+}
+
+BG_IMG_ADD_FORM.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const BG_URL = document.getElementById("bgUrl");
+  let BgUrl = BG_URL.value;
+  console.log(BgUrl, "Thisis url");
+  let newBg = {
+    id: Date.now(),
+    url: BgUrl,
+  };
+  BACGROUND_IMAGES.push(newBg);
+  localStorage.setItem("backgrouds", JSON.stringify(BACGROUND_IMAGES));
+  alert("Background Image Added.");
+  BG_IMG_MODAL.style.display = "none";
+  BG_IMG_ADD_FORM.reset();
+  bgUI(BACGROUND_IMAGES);
+  console.log(BACGROUND_IMAGES, "image data");
+});
+
+function setBgImg(id, elem) {
+  let imageBox = document.querySelectorAll(".imageBox");
+  imageBox.forEach((val) => val.classList.remove("active"));
+
+  elem.classList.add("active");
+  const bgImg = BACGROUND_IMAGES.find((item) => item.id === id);
+  if (!bgImg) return;
+  document.body.style.backgroundImage = `url(${bgImg.url})`;
+  localStorage.setItem("CurrentBackground", JSON.stringify(bgImg));
+}
+
+if (CurrentBackground) {
+  document.body.style.backgroundImage = `url(${CurrentBackground.url})`;
+  console.log(CurrentBackground.url, "THis is is bg");
+}
+// ================================================================================
 // Initially Renderd Function
 // ================================================================================
 
 goalUI(DAILY_GOALS_DATA);
 todoUI(TODOS_DATA);
 planUI(DAILY_PLAN_DATA);
+bgUI(BACGROUND_IMAGES);
