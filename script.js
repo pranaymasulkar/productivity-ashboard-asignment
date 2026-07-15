@@ -9,8 +9,9 @@ const PAGE_SETION = document.querySelectorAll(".pageSection");
 const ADD_TODO_MODAL = document.querySelector("#todoModal");
 const ADD_TODO_BTN = document.querySelector("#addTodoBtn");
 const CLOSE_TODO_MODAL = document.querySelector("#closeTodoModal");
-const TODO_FORM = document.querySelector("#todoForm");
 const TODO_LIST_TABLE = document.querySelector("#todoListTable");
+const TODO_SUBMIT_BTN = document.querySelector("#todoSUbmitBtn");
+const TODO_FORM = document.querySelector("#todoForm");
 
 const DASH_TODO_LIST = document.querySelector("#dashTodoList");
 const DASH_DAILY_PLAN_LIST = document.querySelector("#dashDailyPlanList");
@@ -20,11 +21,15 @@ const DASH_DAILY_GOALS_LIST = document.querySelector("#dashDailyGoalsList");
 const ADD_DAILY_PLAN_MODAL = document.querySelector("#dailyPlanModal");
 const ADD_DAILY_PLAN_BTN = document.querySelector("#addDailyPlan");
 const CLOSE_DAILY_PLAN_MODAL = document.querySelector("#closeDailyPlanModal");
+const PLAN_SUBMIT_BTN = document.querySelector("#planSUbmitBtn");
+const DAILY_PLAN_FORM = document.querySelector("#dailyPlanForm");
 
 // Daily Goals Modal
 const ADD_DAILY_GOAL_MODAL = document.querySelector("#dailyGoalsModal");
 const ADD_DAILY_GOAL_BTN = document.querySelector("#addDailyGoals");
 const CLOSE_DAILY_GOAL_MODAL = document.querySelector("#closeDailyGoalsModal");
+const GOAL_SUBMIT_BTN = document.querySelector("#goalSUbmitBtn");
+const DAILY_GOALS_FORM = document.querySelector("#dailyGoalsForm");
 
 // other
 
@@ -85,11 +90,21 @@ const OPEN_D_GOAL_MODAL = document.querySelector("#openDailyGoalFormModal");
 modalOpen(OPEN_TOTO_MODAL, ADD_TODO_MODAL);
 modalOpen(OPEN_D_PLAN_MODAL, ADD_DAILY_PLAN_MODAL);
 modalOpen(OPEN_D_GOAL_MODAL, ADD_DAILY_GOAL_MODAL);
-modalToggle(ADD_TODO_MODAL, ADD_TODO_BTN, CLOSE_TODO_MODAL);
-modalToggle(ADD_DAILY_PLAN_MODAL, ADD_DAILY_PLAN_BTN, CLOSE_DAILY_PLAN_MODAL);
-modalToggle(ADD_DAILY_GOAL_MODAL, ADD_DAILY_GOAL_BTN, CLOSE_DAILY_GOAL_MODAL);
+modalToggle(ADD_TODO_MODAL, ADD_TODO_BTN, CLOSE_TODO_MODAL, TODO_FORM);
+modalToggle(
+  ADD_DAILY_PLAN_MODAL,
+  ADD_DAILY_PLAN_BTN,
+  CLOSE_DAILY_PLAN_MODAL,
+  DAILY_PLAN_FORM,
+);
+modalToggle(
+  ADD_DAILY_GOAL_MODAL,
+  ADD_DAILY_GOAL_BTN,
+  CLOSE_DAILY_GOAL_MODAL,
+  DAILY_GOALS_FORM,
+);
 
-function modalToggle(modal, open, close) {
+function modalToggle(modal, open, close, form) {
   modal.style.display = "none";
   open.addEventListener("click", () => {
     modal.style.display = "flex";
@@ -97,6 +112,7 @@ function modalToggle(modal, open, close) {
 
   close.addEventListener("click", () => {
     modal.style.display = "none";
+    form.reset();
   });
 }
 
@@ -210,6 +226,7 @@ let editedTodoId = null;
 
 function editTodo(id) {
   ADD_TODO_MODAL.style.display = "flex";
+  TODO_SUBMIT_BTN.textContent = "Update Todo";
   const todo = TODOS_DATA.find((todo) => todo.id === id);
   editedTodoId = id;
 
@@ -225,10 +242,12 @@ function editTodo(id) {
 // =================================
 
 function deleteTodo(id) {
-  const todos = TODOS_DATA.filter((todo) => todo.id !== id);
-  console.log(todos, "deleted todo lit");
-  todoUI(todos);
-  localStorage.setItem("todos", JSON.stringify(todos));
+  const index = TODOS_DATA.findIndex((todo) => todo.id === id);
+  if (index !== -1) {
+    TODOS_DATA.splice(index, 1);
+  }
+  localStorage.setItem("todos", JSON.stringify(TODOS_DATA));
+  todoUI(TODOS_DATA);
 }
 
 // ================================================================================
@@ -260,29 +279,31 @@ function planUI(data) {
   `);
   });
   DASH_DAILY_PLAN_LIST.innerHTML = "";
-  data.forEach((item, index) => {
-    return (DASH_DAILY_PLAN_LIST.innerHTML += `
-     <tr>
-          <td style="width="20%"><input type="checkbox"> <strong>${item.date}</strong></td>
-          <td>${item.title}</td>
-          <td style="width: 20%; text-align: end;">
-            <button class="edit-btn" onclick="editPlan(${item.id})">
-            <i class="ri-pencil-fill"></i>
-            </button>
-            <button class="delete-btn" onclick="deletePlan(${item.id})">
-            <i class="ri-delete-bin-4-fill"></i>
-            </button>
-          </td>
-        </tr>
-      `);
-  });
+  if (data === 0) {
+    DASH_DAILY_PLAN_LIST.innerHTML = `<h2>No Goal Found, please add Goal.</h2>`;
+  } else {
+    data.forEach((item, index) => {
+      return (DASH_DAILY_PLAN_LIST.innerHTML += `
+       <tr>
+            <td style="width="20%"><input type="checkbox"> <strong>${item.date}</strong></td>
+            <td>${item.title}</td>
+            <td style="width: 20%; text-align: end;">
+              <button class="edit-btn" onclick="editPlan(${item.id})">
+              <i class="ri-pencil-fill"></i>
+              </button>
+              <button class="delete-btn" onclick="deletePlan(${item.id})">
+              <i class="ri-delete-bin-4-fill"></i>
+              </button>
+            </td>
+          </tr>
+        `);
+    });
+  }
 }
 
 // ================================================================================
 // Add Daily Plan Logic
 // ================================================================================
-
-const DAILY_PLAN_FORM = document.querySelector("#dailyPlanForm");
 
 DAILY_PLAN_FORM.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -315,12 +336,12 @@ DAILY_PLAN_FORM.addEventListener("submit", (e) => {
   if (editPlanId !== null) {
     const plan = DAILY_PLAN_DATA.find((plan) => plan.id === editPlanId);
 
-    plan.title = title;
-    plan.description = description;
-    plan.category = category;
-    plan.priority = priority;
-    plan.date = date;
-    plan.time = time;
+    plan.title = planTitle;
+    plan.description = planDescription;
+    plan.category = planCategory;
+    plan.priority = planPriority;
+    plan.date = planDate;
+    plan.time = planTime;
 
     alert("Plan Update.");
     editPlanId = null;
@@ -342,7 +363,7 @@ let editPlanId = null;
 
 function editPlan(id) {
   ADD_DAILY_PLAN_MODAL.style.display = "flex";
-  console.log(id);
+  PLAN_SUBMIT_BTN.textContent = "Update Plan";
   const plan = DAILY_PLAN_DATA.find((plan) => plan.id === id);
   editPlanId = id;
 
@@ -359,10 +380,12 @@ function editPlan(id) {
 // =================================
 
 function deletePlan(id) {
-  const plans = DAILY_PLAN_DATA.filter((plan) => plan.id !== id);
-  console.log(plans);
-  localStorage.setItem("daily_plans", JSON.stringify(plans));
-  planUI(plans);
+  const index = DAILY_PLAN_DATA.findIndex((todo) => todo.id === id);
+  if (index !== -1) {
+    DAILY_PLAN_DATA.splice(index, 1);
+  }
+  localStorage.setItem("todos", JSON.stringify(DAILY_PLAN_DATA));
+  planUI(DAILY_PLAN_DATA);
 }
 
 // ================================================================================
@@ -392,28 +415,31 @@ function goalUI(data) {
     `);
   });
   DASH_DAILY_GOALS_LIST.innerHTML = "";
-  data.forEach((item, index) => {
-    return (DASH_DAILY_GOALS_LIST.innerHTML += `
-     <tr>
-          <td><input type="checkbox"> <strong>${item.title}</strong></td>
-          <td style="width: 20%; text-align: end;">
-            <button class="edit-btn" onclick="editGoal(${item.id})">
-            <i class="ri-pencil-fill"></i>
-            </button>
-            <button class="delete-btn" onclick="deleteGoal(${item.id})">
-            <i class="ri-delete-bin-4-fill"></i>
-            </button>
-          </td>
-        </tr>
-      `);
-  });
+  if (data === 0) {
+    DASH_DAILY_GOALS_LIST.innerHTML = `<h2>No Goal Found, please add Goal.</h2>`;
+    return;
+  } else {
+    data.forEach((item, index) => {
+      return (DASH_DAILY_GOALS_LIST.innerHTML += `
+       <tr>
+            <td><input type="checkbox"> <strong>${item.title}</strong></td>
+            <td style="width: 20%; text-align: end;">
+              <button class="edit-btn" onclick="editGoal(${item.id})">
+              <i class="ri-pencil-fill"></i>
+              </button>
+              <button class="delete-btn" onclick="deleteGoal(${item.id})">
+              <i class="ri-delete-bin-4-fill"></i>
+              </button>
+            </td>
+          </tr>
+        `);
+    });
+  }
 }
 
 // ================================================================================
 // Daily Goals Add Logic
 // ================================================================================
-
-const DAILY_GOALS_FORM = document.querySelector("#dailyGoalsForm");
 
 DAILY_GOALS_FORM.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -458,6 +484,7 @@ let editGoalId = null;
 
 function editGoal(id) {
   ADD_DAILY_GOAL_MODAL.style.display = "flex";
+  GOAL_SUBMIT_BTN.textContent = "Update Goal";
   const goal = DAILY_GOALS_DATA.find((goal) => goal.id === id);
   editGoalId = id;
   goal.value = goalTitle;
@@ -469,9 +496,12 @@ function editGoal(id) {
 // =================================
 
 function deleteGoal(id) {
-  const goals = DAILY_GOALS_DATA.filter((goal) => goal.id !== id);
-  console.log(goals);
-  localStorage.setItem("goals", JSON.stringify(goals));
+  const index = DAILY_GOALS_DATA.findIndex((todo) => todo.id === id);
+  if (index !== -1) {
+    DAILY_GOALS_DATA.splice(index, 1);
+  }
+  localStorage.setItem("todos", JSON.stringify(DAILY_GOALS_DATA));
+  goalUI(DAILY_GOALS_DATA);
 }
 
 // ================================================================================
