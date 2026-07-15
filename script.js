@@ -38,6 +38,7 @@ const CURRENT_DATE = document.querySelector("#currentDate");
 const TODOS_DATA = JSON.parse(localStorage.getItem("todos")) || [];
 const DAILY_PLAN_DATA = JSON.parse(localStorage.getItem("daily_plans")) || [];
 const DAILY_GOALS_DATA = JSON.parse(localStorage.getItem("goals")) || [];
+const THEAM = JSON.parse(localStorage.getItem("theme"));
 
 // ================================================================================
 // Page Navigation Logis
@@ -133,21 +134,27 @@ function todoUI(data) {
     `);
   });
   DASH_TODO_LIST.innerHTML = "";
-  data.forEach((item, index) => {
-    return (DASH_TODO_LIST.innerHTML += `
-      <tr>
-          <td><input type="checkbox"/> ${item.title}</td>
-          <td style="width: 18%; text-align: end;">
-            <button class="edit-btn" onclick="editTodo(${item.id})">
-            <i class="ri-pencil-fill"></i>
-            </button>
-            <button class="delete-btn" onclick="deleteTodo(${item.id})">
-            <i class="ri-delete-bin-4-fill"></i>
-            </button>
-          </td>
+  if (data.length === 0) {
+    console.log("No todo");
+    DASH_TODO_LIST.innerHTML = `<h2>No Task Found, please add Todo.</h2>`;
+    return;
+  } else {
+    data.forEach((item, index) => {
+      return (DASH_TODO_LIST.innerHTML += `
+        <tr>
+        <td><input type="checkbox"/> ${item.title}</td>
+        <td style="width: 18%; text-align: end;">
+        <button class="edit-btn" onclick="editTodo(${item.id})">
+        <i class="ri-pencil-fill"></i>
+        </button>
+        <button class="delete-btn" onclick="deleteTodo(${item.id})">
+        <i class="ri-delete-bin-4-fill"></i>
+        </button>
+        </td>
         </tr>
-      `);
-  });
+        `);
+    });
+  }
 }
 
 TODO_FORM.addEventListener("submit", (e) => {
@@ -219,9 +226,9 @@ function editTodo(id) {
 
 function deleteTodo(id) {
   const todos = TODOS_DATA.filter((todo) => todo.id !== id);
-  console.log(todos);
-  localStorage.setItem("todos", JSON.stringify(todos));
+  console.log(todos, "deleted todo lit");
   todoUI(todos);
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
 
 // ================================================================================
@@ -409,6 +416,7 @@ function goalUI(data) {
 const DAILY_GOALS_FORM = document.querySelector("#dailyGoalsForm");
 
 DAILY_GOALS_FORM.addEventListener("submit", (e) => {
+  e.preventDefault();
   ADD_DAILY_GOAL_MODAL.style.display = "flex";
   const GOAL_TITLE = document.getElementById("goalTitle");
   const GOAL_DESCRIPTION = document.getElementById("goalDescription");
@@ -450,10 +458,10 @@ let editGoalId = null;
 
 function editGoal(id) {
   ADD_DAILY_GOAL_MODAL.style.display = "flex";
-  const goal = DAILY_GOALS_DATA.find((goal, item) => goal.id === id);
+  const goal = DAILY_GOALS_DATA.find((goal) => goal.id === id);
   editGoalId = id;
-  goalTitle.value = goal.time;
-  goalDescription.value = goal.description;
+  goal.value = goalTitle;
+  goal.value = goalDescription;
 }
 
 // =================================
@@ -608,13 +616,6 @@ cityInput.addEventListener("keydown", (event) => {
 
 // Default Weather
 getWeather("Nagpur");
-// ================================================================================
-// Initially Renderd Function
-// ================================================================================
-
-goalUI(DAILY_GOALS_DATA);
-todoUI(TODOS_DATA);
-planUI(DAILY_PLAN_DATA);
 
 // ================================================================================
 // Current Dste And Time function
@@ -803,3 +804,30 @@ resetBtn.addEventListener("click", () => {
   resetTimer();
 });
 updateTimer();
+
+// ================================================================================
+// Theam Chnage functinality
+// ================================================================================
+
+const DARK_MODE_BTN = document.querySelector("#dark-mode-btn");
+if (THEAM) {
+  document.body.classList.add("dark-theme");
+  DARK_MODE_BTN.checked = true;
+}
+DARK_MODE_BTN.addEventListener("change", () => {
+  if (DARK_MODE_BTN.checked) {
+    document.body.classList.add("dark-theme");
+    localStorage.setItem("theme", JSON.stringify(true));
+  } else {
+    document.body.classList.remove("dark-theme");
+    localStorage.setItem("theme", JSON.stringify(false));
+  }
+});
+
+// ================================================================================
+// Initially Renderd Function
+// ================================================================================
+
+goalUI(DAILY_GOALS_DATA);
+todoUI(TODOS_DATA);
+planUI(DAILY_PLAN_DATA);
